@@ -4,12 +4,6 @@ from email.mime.text import MIMEText
 import config as c
 
 def send_email(body):
-    # Set up the SMTP server
-    # smtp_server = 'smtp.gmail.com'  # Your SMTP server address
-    # smtp_port = 587  # Your SMTP server port
-    # sender_email = 'aksht757@gmail.com'  # Your email address
-    # sender_password = 'qjpp pvsf wzmv vzde'  # Your email password
-    # receiver_mail = 'akert263@gmail.com'
     
     # Create a message
     msg = MIMEMultipart()

@@ -1,13 +1,12 @@
 import speech_recognition as sr
-from database import save_recording, search_recording, connect_to_db, setup_db, read_recording, last_n_recording, delete_recording 
+from database import save_recording, search_recording_by_date ,search_recording, connect_to_db, setup_db, read_recording, last_n_recording, delete_recording 
 from mail_service import send_email
 from speak import text_to_speech
 from datetime import datetime, timedelta
 
+flag = False
 
-def time_duration(start_time1):
-    return datetime.now - start_time1
-
+start_time = datetime.now()
 
 def command_process(command_text,text):
     command1 = "start recording"
@@ -23,13 +22,13 @@ def command_process(command_text,text):
     elif command2 in command_text.lower():
         print("recording stopped")
         text_to_speech("recording stopped")
-        save_recording(text)
+        save_recording(text,start_time)
         # send_email(text)
         return "stop"
     elif command3 in command_text.lower():
         print("recording stopped")
         text_to_speech("recording stopped")
-        save_recording(text)
+        save_recording(text,start_time)
         send_email(text)
         return "stop"
     elif command4 in command_text.lower():
@@ -40,7 +39,6 @@ def command_process(command_text,text):
         return "stop"
         
 
-    
 def listen():
     r = sr.Recognizer()
     text = ""
@@ -50,9 +48,13 @@ def listen():
         start_time = datetime.now()
         time_limit = timedelta(seconds = 60)
     
-        
+        flag = True
         start_mode = None
-        while True:
+        while flag:
+            # if(flag == False):
+            #     print("the recorded text is: ", text)
+            #     return
+            
             if datetime.now() - start_time > time_limit:
                 print(f"time limit of {time_limit} seconds has been passed. ")
                 text_to_speech(f"time limit of {time_limit} seconds has been passed. ")
@@ -81,10 +83,18 @@ def listen():
             except sr.RequestError as e:
                 print("Error: {0}".format(e))
 
+            # if(flag == False):
+            #     print("the recorded text is: ", text)
+            #     return    
+
+
+
 # conn = connect_to_db()
+# setup_t
 # setup_db()
-listen()
+# listen()
 # read_recording()
-# delete_recording(conn, 1)
+# search_recording_by_date("2024-04-27")
+# delete_recording(1)
 # read_recording()
 # last_n_recording(2)

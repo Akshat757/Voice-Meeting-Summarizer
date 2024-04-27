@@ -1,0 +1,177 @@
+body {
+    margin: 0;
+    padding: 0;
+    /* height: 100vh; */
+    display: flex;
+    /* justify-content: center;
+    align-items: center; */
+    flex-direction: column;
+}
+
+.indexh1 {
+    position: relative;
+    margin-top: 10vh;
+    cursor: pointer;
+    font-size: 150px;
+    font-family: sans-serif;
+    /* background: linear-gradient(68.6deg, rgb(252, 165, 241) 1.8%, rgb(181, 255, 255) 100.5%); */
+    /* background: linear-gradient(to top, #c471f5 0%, #fa71cd 100%); */
+    /* background: linear-gradient(96.2deg, rgb(255, 230, 112) 10.4%, rgb(255, 100, 100) 43.8%, rgb(0, 93, 219) 105.8%); */
+    /* background: linear-gradient(137.9deg, rgb(78, 156, 226) 7.8%, rgb(62, 146, 69) 16%, rgb(251, 220, 23) 32.7%, rgb(242, 160, 35) 50.4%, rgb(253, 12, 12) 71.5%, rgb(192, 26, 129) 83.1%); */
+    background: -webkit-linear-gradient(0deg, rgb(255, 0, 123) 15%, rgb(164, 25, 190) 65%, rgb(123, 22, 218) 100%) text;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+}
+
+
+
+
+.menu {
+    background-color: #333;
+    padding: 15px 0;
+    width: 100%;
+}
+
+.menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    display: flex;
+    justify-content: space-around;
+}
+
+.menu ul li {
+    display: inline-block;
+    /* position: relative; */
+}
+
+.menu ul li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+}
+
+.menu ul li a:hover {
+    background-color: #555;
+}
+
+
+.controls {
+    text-align: center;
+    margin-top: 230px;
+}
+
+.record-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.record-button span {
+    margin-right: 10px;
+}
+
+/* styling for record.html */
+.recordh1{
+    position: relative;
+    margin-top: 0vh;
+    cursor: pointer;
+    font-size: 150px;
+    font-family: sans-serif;
+    /* background: linear-gradient(68.6deg, rgb(252, 165, 241) 1.8%, rgb(181, 255, 255) 100.5%); */
+    /* background: linear-gradient(to top, #c471f5 0%, #fa71cd 100%); */
+    /* background: linear-gradient(96.2deg, rgb(255, 230, 112) 10.4%, rgb(255, 100, 100) 43.8%, rgb(0, 93, 219) 105.8%); */
+    /* background: linear-gradient(137.9deg, rgb(78, 156, 226) 7.8%, rgb(62, 146, 69) 16%, rgb(251, 220, 23) 32.7%, rgb(242, 160, 35) 50.4%, rgb(253, 12, 12) 71.5%, rgb(192, 26, 129) 83.1%); */
+    background: -webkit-linear-gradient(0deg, rgb(255, 0, 123) 15%, rgb(164, 25, 190) 65%, rgb(123, 22, 218) 100%) text;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: auto; /* Center align the table */
+}
+
+/* Style for table headers */
+th {
+    background-color: #f2f2f2; /* Light gray background */
+    border: 1px solid #ddd; /* Gray border */
+    padding: 8px;
+    text-align: center; /* Center align the text */
+}
+
+/* Style for table cells */
+td {
+    border: 1px solid #ddd; /* Gray border */
+    padding: 8px;
+    text-align: center; /* Center align the text */
+}
+
+/* Hide the full text initially */
+.full-text {
+    display: none;
+}
+
+/* Show the full text on click */
+.show-full-text {
+    display: table-cell !important; /* Override the display property */
+}
+
+/* Style for the search bar */
+.search-container {
+    text-align: center; /* Center align the search bar */
+    margin-bottom: 15vh; /* Add some space below the search bar */
+    margin-top: -5vh;
+}
+
+.search-input {
+    padding: 10px; /* Add padding to the search input */
+    border: 1px solid #ccc; /* Add a border */
+    border-radius: 5px; /* Add border radius for rounded corners */
+    width: 300px; /* Set the width of the search input */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    font-size: 16px; /* Set the font size */
+    transition: width 0.3s ease-in-out; /* Add a transition effect for width changes */
+}
+
+.search-input:focus {
+    width: 400px; /* Expand the search input when focused */
+}
+
+.search-button {
+    padding: 10px; /* Add padding to the search button */
+    border: none; /* Remove border */
+    background-color: #4CAF50; /* Green background color */
+    color: white; /* White text color */
+    border-radius: 5px; /* Add border radius for rounded corners */
+    cursor: pointer; /* Add cursor pointer on hover */
+    transition: background-color 0.3s ease-in-out; /* Add a transition effect for background color changes */
+}
+
+.search-button:hover {
+    background-color: #45a049; /* Darker green background color on hover */
+}
+
+.search-dropdown {
+    padding: 10px; /* Add padding to the dropdown menu */
+    border: 1px solid #ccc; /* Add a border */
+    border-radius: 5px; /* Add border radius for rounded corners */
+    font-size: 16px; /* Set the font size */
+    margin-right: 10px; /* Add margin to the right side of the dropdown menu */
+    cursor: pointer; /* Add cursor pointer */
+    transition: border-color 0.3s ease-in-out; /* Add a transition effect for border color changes */
+}
+
+.search-dropdown:hover {
+    border-color: #888; /* Darker border color on hover */
+}

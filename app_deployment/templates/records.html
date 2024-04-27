@@ -1,0 +1,80 @@
+<!-- frontend/templates/records.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <title>Records Page</title>
+    <style>
+        .full-text {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="moving-heading" class="recordh1">Records</h1>
+
+    <div class="search-container">
+        <select class="search-dropdown">
+            <option value="word">Search by Word</option>
+            <option value="date">Search by Date</option>
+        </select>
+        <input type="text" class="search-input" placeholder="Search...">
+        <button class="search-button">Search</button>
+    </div>
+    <!-- Add content for your records page here -->
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Recorded Text</th>
+            <th>time of record</th>
+            <th>duration of recording</th>
+
+            <!-- Add more <th> elements if you have more columns -->
+        </tr>
+        {% for row in data %}
+        <tr>
+            <td>{{ row[0] }}</td>
+            <td class="truncated-text">{{ row[1] | truncate(50) }}</td>
+            <td class="full-text" style="display: none;">{{ row[1] }}</td>
+            <td>{{ row[2] }}</td>
+            <td>{{ row[3] }}</td>
+            <!-- Repeat this line for each column -->
+        </tr>
+        {% endfor %}
+    </table>
+
+    <script>
+        
+        
+        document.querySelectorAll('.truncated-text, .full-text').forEach(function (element) {
+            element.addEventListener('click', function () {
+                // Toggle display of truncated text and full text
+                if (this.classList.contains('truncated-text')) {
+                    // If clicked element is truncated text, hide it and show full text
+                    this.style.display = 'none'; // Hide truncated text
+                    this.nextElementSibling.style.display = 'table-cell'; // Show full text
+                } else {
+                    // If clicked element is full text, hide it and show truncated text
+                    this.style.display = 'none'; // Hide full text
+                    this.previousElementSibling.style.display = 'table-cell'; // Show truncated text
+                }
+            });
+        });
+        
+        document.getElementById('search-button').addEventListener('click', function () {
+            var selectedValue = document.getElementById('search-dropdown').value;
+            if (selectedValue === 'word') {
+                search_by_word();
+            } else if (selectedValue === 'date') {
+                search_by_date();
+            }
+        });
+        
+    </script>
+
+</body>
+</html>

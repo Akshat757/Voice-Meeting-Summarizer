@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Heading</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    
+    
+</head>
+
+<body>
+    
+    <nav class="menu">
+        <ul>
+            <div><li><a href="/">Home</a></li></div>
+            <div><li><a href="/records">Records</a></li></div>
+            <div><li><a href="/mail">Mail</a></li></div>
+            <div><li><a href="/about">About</a></li></div>
+        </ul>
+    </nav>
+    
+    <h1 id="moving-heading" class="indexh1">listening</h1>
+    
+    
+    <div class="controls">
+        <button id="start-recording" class="record-button">
+            <span>START <i class="fas fa-play"></i> RECORDING</span>
+        </button>
+        <button id="stop-recording" class="record-button" style="display: none;">
+            <span>STOP <i class="fas fa-stop"></i> RECORDING</span>
+        </button>
+        <i id="recording-icon" class="fas fa-microphone" style="display: none;"></i>
+    </div>
+
+    <!-- Include jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Your script to handle button clicks -->
+    <script>
+        $(document).ready(function () {
+            $('#start-recording').click(function () {
+                // Hide start recording button
+                $(this).hide();
+                // Show stop recording button and microphone icon
+                $('#stop-recording').show();
+                $('#recording-icon').show();
+                // Make the AJAX request to start recording (POST method)
+                $.ajax({
+                    url: '/start_recording',
+                    type: 'POST',
+                    success: function (data) {
+                        console.log(data);
+                        // You can handle the response here if needed
+                    }
+                });
+            });
+
+            $('#stop-recording').click(function () {
+                // Hide stop recording button and microphone icon
+                $(this).hide();
+                $('#recording-icon').hide();
+                // Show start recording button
+                $('#start-recording').show();
+                $.ajax({
+                    url: '/stop_recording',
+                    type: 'POST',
+                    success: function (data) {
+                        console.log(data);
+                        // You can handle the response here if needed
+                    }
+                });
+            });
+        });
+    </script>
+    
+
+</body>
+
+</html>

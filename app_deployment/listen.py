@@ -1,14 +1,13 @@
 import speech_recognition as sr
-from database import save_recording, search_recording_by_date ,search_recording, connect_to_db, setup_db, read_recording, last_n_recording, delete_recording 
+from database import save_recording, search_recording_by_date ,search_recording_by_word, connect_to_db, setup_db, read_recording, last_n_recording, delete_recording 
 from mail_service import send_email
 from speak import text_to_speech
 from datetime import datetime, timedelta
+from summary_sumy import generate_summary
 
-flag = False
+sum_text = ""
 
-start_time = datetime.now()
-
-def command_process(command_text,text):
+def command_process(command_text, text, start_time):
     command1 = "start recording"
     command2 = "stop recording"
     command3 = "send text to mail"
@@ -22,22 +21,23 @@ def command_process(command_text,text):
     elif command2 in command_text.lower():
         print("recording stopped")
         text_to_speech("recording stopped")
-        save_recording(text,start_time)
-        # send_email(text)
+        sum_text = generate_summary(text)
+        save_recording(text, sum_text, start_time)
         return "stop"
     elif command3 in command_text.lower():
         print("recording stopped")
         text_to_speech("recording stopped")
-        save_recording(text,start_time)
+        sum_text = generate_summary(text)
+        save_recording(text, sum_text, start_time)
         send_email(text)
         return "stop"
     elif command4 in command_text.lower():
         search_query = command_text.split("search database for", 1)[1].strip()
-        search_recording(search_query)
+        search_recording_by_word(search_query)
         print("recording stopped")
         text_to_speech("recording stopped")
         return "stop"
-        
+
 
 def listen():
     r = sr.Recognizer()
@@ -46,33 +46,32 @@ def listen():
         print("Listening for command...")
         text_to_speech("Listening for command...")
         start_time = datetime.now()
-        time_limit = timedelta(seconds = 60)
+        print(f'the start time for the listening is: {start_time}\n')
+        time_limit = timedelta(seconds = 180)
     
-        flag = True
         start_mode = None
-        while flag:
-            # if(flag == False):
-            #     print("the recorded text is: ", text)
-            #     return
+        while True:
             
-            if datetime.now() - start_time > time_limit:
+            if datetime.now() - start_time >= time_limit:
                 print(f"time limit of {time_limit} seconds has been passed. ")
                 text_to_speech(f"time limit of {time_limit} seconds has been passed. ")
                 command_text = "Stop recording"
-                command_process(command_text,text)
-                return
+                command_process(command_text,text,start_time)
+                return text
 
             audio = r.listen(source)  
             
             try:
                 command_text = r.recognize_google(audio)
-                command = command_process(command_text,text)
+                command = command_process(command_text,text,start_time)
                 if command == "start":
+                    start_time = datetime.now()
+                    print(f'the start time of the recording is: {start_time}\n')
                     start_mode = 1
 
                 elif command == "stop":
                     print("the recorded text is: ", text)
-                    return
+                    return text
                 
                 elif start_mode:
                     text +=" "+ command_text
@@ -82,10 +81,8 @@ def listen():
                 print("Could not understand audio")
             except sr.RequestError as e:
                 print("Error: {0}".format(e))
+  
 
-            # if(flag == False):
-            #     print("the recorded text is: ", text)
-            #     return    
 
 
 

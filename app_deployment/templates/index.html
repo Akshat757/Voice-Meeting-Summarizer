@@ -24,6 +24,11 @@
     </nav>
     
     <h1 id="moving-heading" class="indexh1">listening</h1>
+
+
+    <p class="record_text"></p>
+    <p class="summ_text"></p>
+    <p class="key_words"></p>
     
     
     <div class="controls">
@@ -53,7 +58,15 @@
                     url: '/start_recording',
                     type: 'POST',
                     success: function (data) {
-                        console.log(data);
+                        console.log(data)
+                        var text = data[0];
+                        var sum_text = data[1]; 
+                        var keywords = data[2];
+
+                        $('.record_text').text(text);
+                        $('.summ_text').text(sum_text);
+                        $('.key_words').text(keywords);
+
                         // You can handle the response here if needed
                     }
                 });

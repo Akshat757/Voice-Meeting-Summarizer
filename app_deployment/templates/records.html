@@ -7,12 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>Records Page</title>
-    <style>
-        .full-text {
-            display: none;
-        }
-    </style>
 </head>
 <body>
     <h1 id="moving-heading" class="recordh1">Records</h1>
@@ -24,12 +20,13 @@
         </select>
         <input type="text" class="search-input" placeholder="Search...">
         <button class="search-button">Search</button>
-    </div>
+    </div class="records-container">
     <!-- Add content for your records page here -->
     <table border="1">
         <tr>
             <th>ID</th>
             <th>Recorded Text</th>
+            <th>Summarized Text</th>
             <th>time of record</th>
             <th>duration of recording</th>
 
@@ -40,8 +37,10 @@
             <td>{{ row[0] }}</td>
             <td class="truncated-text">{{ row[1] | truncate(50) }}</td>
             <td class="full-text" style="display: none;">{{ row[1] }}</td>
-            <td>{{ row[2] }}</td>
+            <td class="truncated-text">{{ row[2] | truncate(50) }}</td>
+            <td class="full-text" style="display: none;">{{ row[2] }}</td>
             <td>{{ row[3] }}</td>
+            <td>{{ row[4] }}</td>
             <!-- Repeat this line for each column -->
         </tr>
         {% endfor %}
@@ -49,7 +48,33 @@
 
     <script>
         
-        
+
+        $(document).ready(function () {
+            $('.search-button').click(function () {
+
+                console.log("Search button clicked!");
+
+                // Get the search query and selected value
+                var searchQuery = $('.search-input').val();
+                var selectedValue = $('.search-dropdown').val();
+
+                // Make AJAX request to the server to get search results
+                $.ajax({
+                    url: '/search',
+                    type: 'GET',
+                    data: { searchQuery: searchQuery, selectedValue: selectedValue }, // Include search query and selected value as parameters
+                    success: function (data) {
+                        // Update the records page with the search results
+                        // $('.records-container').html(data);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error:', error);
+                    }
+                });
+            });
+        });
+
+
         document.querySelectorAll('.truncated-text, .full-text').forEach(function (element) {
             element.addEventListener('click', function () {
                 // Toggle display of truncated text and full text
@@ -64,15 +89,9 @@
                 }
             });
         });
-        
-        document.getElementById('search-button').addEventListener('click', function () {
-            var selectedValue = document.getElementById('search-dropdown').value;
-            if (selectedValue === 'word') {
-                search_by_word();
-            } else if (selectedValue === 'date') {
-                search_by_date();
-            }
-        });
+
+
+
         
     </script>
 

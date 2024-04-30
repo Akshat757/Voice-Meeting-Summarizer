@@ -25,6 +25,8 @@
     
     <h1 id="moving-heading" class="indexh1">listening</h1>
 
+    <!-- <h2 style="display: none;">Listening for command...</h2> -->
+    <div id="update-container"></div>
 
     <p class="record_text"></p>
     <p class="summ_text"></p>
@@ -46,31 +48,82 @@
 
     <!-- Your script to handle button clicks -->
     <script>
-        $(document).ready(function () {
-            $('#start-recording').click(function () {
-                // Hide start recording button
-                $(this).hide();
-                // Show stop recording button and microphone icon
-                $('#stop-recording').show();
-                $('#recording-icon').show();
-                // Make the AJAX request to start recording (POST method)
-                $.ajax({
-                    url: '/start_recording',
-                    type: 'POST',
-                    success: function (data) {
-                        console.log(data)
-                        var text = data[0];
-                        var sum_text = data[1]; 
-                        var keywords = data[2];
+        // $(document).ready(function () {
+        //     $('#start-recording').click(function () {
+        //         // Hide start recording button
+        //         $(this).hide();
+        //         // Show stop recording button and microphone icon
+        //         $('#stop-recording').show();
+        //         $('#recording-icon').show();
+        //         $('')
+        //         // Make the AJAX request to start recording (POST method)
+        //         $.ajax({
+        //             url: '/start_recording',
+        //             type: 'POST',
+        //             success: function (data) {
+        //                 console.log(data)
+        //                 var text = data[0];
+        //                 var sum_text = data[1]; 
+        //                 var keywords = data[2];
 
-                        $('.record_text').text(text);
-                        $('.summ_text').text(sum_text);
-                        $('.key_words').text(keywords);
+        //                 $('.record_text').text(text);
+        //                 $('.summ_text').text(sum_text);
+        //                 $('.key_words').text(keywords);
 
-                        // You can handle the response here if needed
+        //                 // You can handle the response here if needed
+        //             }
+        //         });
+        //     });
+        function handleUpdate(update) {
+        // Create a new paragraph element to display the update message
+        var p = document.createElement("p");
+        p.textContent = update; // Set the text content of the paragraph element to the update message
+        // Append the paragraph element to the update container
+        document.getElementById("update-container").appendChild(p);
+    }
+
+    // Function to start recording
+    function startRecording() {
+        // Make a POST request to start recording
+        fetch('/start_recording', {
+            method: 'POST'
+        })
+        .then(response => {
+            // Check if the response is a stream
+            if (!response.body) {
+                console.error('Response is not a stream');
+                return;
+            }
+
+            // Create a new ReadableStream from the response body
+            const stream = response.body.getReader();
+
+            // Function to read updates from the stream
+            function readStream() {
+                stream.read().then(({done, value}) => {
+                    if (done) {
+                        console.log('Stream closed');
+                        return;
                     }
+                    // Convert the received Uint8Array value to a string
+                    const update = new TextDecoder().decode(value);
+                    // Handle the update
+                    handleUpdate(update);
+                    // Continue reading updates from the stream
+                    readStream();
                 });
-            });
+            }
+
+            // Start reading updates from the stream
+            readStream();
+        })
+        .catch(error => {
+            console.error('Error starting recording:', error);
+        });
+    }
+
+    document.getElementById("start-recording").addEventListener("click", startRecording);
+
 
             $('#stop-recording').click(function () {
                 // Hide stop recording button and microphone icon
@@ -87,7 +140,7 @@
                     }
                 });
             });
-        });
+        // });
     </script>
     
 

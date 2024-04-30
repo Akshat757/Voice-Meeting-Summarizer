@@ -21,7 +21,7 @@ TO DO'S
     recordings                   
 
 8. User Interface   
-    -> search options                                   -> buggy (1)
+    -> search options                                   -> done
     -> start button                                     -> done
     -> stop button                                      -> buggy (2)
     -> showing database table with:                     -> done
@@ -40,9 +40,9 @@ TO DO'S
 
 12. heading itself as a button for start/stop           -> good to have
 
-13. in the table latest on top                          -> must have
+13. in the table latest on top                          -> done
 
-14. pagination (10 recordings on one page)              -> must have
+14. pagination (10 recordings on one page)              -> done
 
 15. duration fix (bug)                                  -> done
 

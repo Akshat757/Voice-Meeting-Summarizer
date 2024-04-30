@@ -23,17 +23,13 @@ def generate_summary(text, language="english", sentences_count=1):
 
     return summary
 
-# if __name__ == "__main__":
-#     TEXT = '''
-#     There are various types of text summarizers, including automatic summarization and manual summarization.
+if __name__ == "__main__":
+    TEXT = '''
+    so let me just give you an introduction about myself I am John from college medicaps university. I have been is there since last three years. I am a third year student of BTech from branch Computer Science and what time assistant for Bipasha meetings and Caesar.I have many other hobbies like playing sports listening music travelling two various places across the country.
+    '''
 
-#     Automatic summarization uses algorithms to analyze the text and identify the most important information, such as key sentences or phrases, to create a summary. A text summarizer is a tool that uses artificial intelligence to condense a large piece of written content into a shorter, more digestible form while preserving the original meaning and context.
-    
-#     This process is often powered by natural language processing (NLP) and machine learning techniques.Manual summarization, on the other hand, requires a human to manually read the text and extract the most important information, which can be a time-consuming and labor-intensive process.    
-# '''
+    LANGUAGE = "english"
+    SENTENCES_COUNT = 1
 
-#     LANGUAGE = "english"
-#     SENTENCES_COUNT = 1
-
-#     summary = generate_summary(TEXT, language=LANGUAGE, sentences_count=SENTENCES_COUNT)
-#     print(summary)
+    summary = generate_summary(TEXT, language=LANGUAGE, sentences_count=SENTENCES_COUNT)
+    print(summary)

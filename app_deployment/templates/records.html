@@ -11,20 +11,32 @@
     <title>Records Page</title>
 </head>
 <body>
+    <nav class="menu">
+        <ul>
+            <div><li><a href="/">Home</a></li></div>
+            <div><li><a href="/records">Records</a></li></div>
+            <div><li><a href="/mail">Mail</a></li></div>
+            <div><li><a href="/about">About</a></li></div>
+        </ul>
+    </nav>
+
+
     <h1 id="moving-heading" class="recordh1">Records</h1>
 
     <div class="search-container">
-        <select class="search-dropdown">
-            <option value="word">Search by Word</option>
-            <option value="date">Search by Date</option>
-        </select>
-        <input type="text" class="search-input" placeholder="Search...">
-        <button class="search-button">Search</button>
-    </div class="records-container">
+        <form method="POST">
+            <select name="search_type" id="search_type" class="search-dropdown">
+                <option value="word">Search by Word</option>
+                <option value="date">Search by Date</option>
+            </select>
+            <input type="text" name="search_query" id="search_query" class="search-input" placeholder="e.g. hello">
+            <button class="search-button">Search</button>
+        </form>
+    </div>
     <!-- Add content for your records page here -->
-    <table border="1">
+    <table class="records-container" border="1">
         <tr>
-            <th>ID</th>
+            <th>#</th>
             <th>Recorded Text</th>
             <th>Summarized Text</th>
             <th>time of record</th>
@@ -32,15 +44,15 @@
 
             <!-- Add more <th> elements if you have more columns -->
         </tr>
-        {% for row in data %}
+        {% for index in range(1, data|length + 1) %}
         <tr>
-            <td>{{ row[0] }}</td>
-            <td class="truncated-text">{{ row[1] | truncate(50) }}</td>
-            <td class="full-text" style="display: none;">{{ row[1] }}</td>
-            <td class="truncated-text">{{ row[2] | truncate(50) }}</td>
-            <td class="full-text" style="display: none;">{{ row[2] }}</td>
-            <td>{{ row[3] }}</td>
-            <td>{{ row[4] }}</td>
+            <td>{{ index }}</td>
+            <td class="truncated-text">{{ data[index-1][0] | truncate(50) }}</td>
+            <td class="full-text" style="display: none;">{{ data[index-1][0] }}</td>
+            <td class="truncated-text">{{ data[index-1][1] | truncate(50) }}</td>
+            <td class="full-text" style="display: none;">{{ data[index-1][1] }}</td>
+            <td>{{ data[index-1][2] }}</td>
+            <td>{{ data[index-1][3] }}</td>
             <!-- Repeat this line for each column -->
         </tr>
         {% endfor %}
@@ -48,32 +60,15 @@
 
     <script>
         
-
-        $(document).ready(function () {
-            $('.search-button').click(function () {
-
-                console.log("Search button clicked!");
-
-                // Get the search query and selected value
-                var searchQuery = $('.search-input').val();
-                var selectedValue = $('.search-dropdown').val();
-
-                // Make AJAX request to the server to get search results
-                $.ajax({
-                    url: '/search',
-                    type: 'GET',
-                    data: { searchQuery: searchQuery, selectedValue: selectedValue }, // Include search query and selected value as parameters
-                    success: function (data) {
-                        // Update the records page with the search results
-                        // $('.records-container').html(data);
-                    },
-                    error: function (xhr, status, error) {
-                        console.error('Error:', error);
-                    }
-                });
-            });
+        document.getElementById("search_type").addEventListener("change", function() {
+            var searchType = this.value;
+            var inputField = document.getElementById("search_query");
+            if (searchType === "word") {
+                inputField.placeholder = "e.g. hello";
+            } else if (searchType === "date") {
+                inputField.placeholder = "e.g. 2024-01-01";
+            }
         });
-
 
         document.querySelectorAll('.truncated-text, .full-text').forEach(function (element) {
             element.addEventListener('click', function () {
@@ -94,6 +89,22 @@
 
         
     </script>
+
+    <div class="pagination">
+        <span class="pagination-text">Page {{ page }} of {{ total_pages }}</span>
+        
+        {% if page > 1 %}
+            <a href="{{ url_for('records', page=page-1) }}" class="pagination-button">< Prev</a>
+        {% else %}
+            <span class="pagination-button disabled">Prev</span>
+        {% endif %}
+        
+        {% if page < total_pages %}
+            <a href="{{ url_for('records', page=page+1) }}" class="pagination-button">Next ></a>
+        {% else %}
+            <span class="pagination-button disabled">Next</span>
+        {% endif %}
+    </div>
 
 </body>
 </html>

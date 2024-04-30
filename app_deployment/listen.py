@@ -4,6 +4,8 @@ from mail_service import send_email
 from speak import text_to_speech
 from datetime import datetime, timedelta
 from summary_sumy import generate_summary
+from keywords import top_frequent_words
+
 
 sum_text = ""
 
@@ -39,57 +41,109 @@ def command_process(command_text, text, start_time):
         return "stop"
 
 
-def listen():
+# def listen():
+#     r = sr.Recognizer()
+#     text = ""
+#     with sr.Microphone() as source:
+#         print("Listening for command...")
+#         text_to_speech("Listening for command...")
+#         start_time = datetime.now()
+#         print(f'the start time for the listening is: {start_time}\n')
+#         time_limit = timedelta(seconds = 180)
+    
+#         start_mode = None
+#         while True:
+            
+#             if datetime.now() - start_time >= time_limit:
+#                 print(f"time limit of {time_limit} seconds has been passed. ")
+#                 text_to_speech(f"time limit of {time_limit} seconds has been passed. ")
+#                 command_text = "Stop recording"
+#                 command_process(command_text,text,start_time)
+#                 return text
+
+#             audio = r.listen(source)  
+            
+#             try:
+#                 command_text = r.recognize_google(audio)
+#                 command = command_process(command_text,text,start_time)
+#                 if command == "start":
+#                     start_time = datetime.now()
+#                     print(f'the start time of the recording is: {start_time}\n')
+#                     start_mode = 1
+
+#                 elif command == "stop":
+#                     print("the recorded text is: ", text)
+#                     return text
+                
+#                 elif start_mode:
+#                     text +=" "+ command_text
+#                     print("the recorded text is: ", text)
+
+#             except sr.UnknownValueError:
+#                 print("Could not understand audio")
+#             except sr.RequestError as e:
+#                 print("Error: {0}".format(e))
+  
+def listen_updates():
     r = sr.Recognizer()
     text = ""
     with sr.Microphone() as source:
         print("Listening for command...")
+        yield("Listening for command...")
         text_to_speech("Listening for command...")
         start_time = datetime.now()
         print(f'the start time for the listening is: {start_time}\n')
-        time_limit = timedelta(seconds = 180)
+        time_limit = timedelta(seconds=40)
     
         start_mode = None
         while True:
-            
             if datetime.now() - start_time >= time_limit:
-                print(f"time limit of {time_limit} seconds has been passed. ")
-                text_to_speech(f"time limit of {time_limit} seconds has been passed. ")
+                yield f"Time limit of {time_limit} seconds has been passed."
                 command_text = "Stop recording"
                 command_process(command_text,text,start_time)
+                final_text = "the recorded text is: " + text
+                sum_text = "\nthe summarized text is: " + generate_summary(text)
+                keywords = top_frequent_words(text)
+                yield final_text
+                yield sum_text
+                yield keywords
                 return text
-
-            audio = r.listen(source)  
+                
             
+            audio = r.listen(source)
             try:
                 command_text = r.recognize_google(audio)
-                command = command_process(command_text,text,start_time)
+                command = command_process(command_text, text, start_time)
                 if command == "start":
                     start_time = datetime.now()
+                    yield 'Recording started.'
                     print(f'the start time of the recording is: {start_time}\n')
                     start_mode = 1
-
                 elif command == "stop":
+                    yield 'Recording stopped.'
                     print("the recorded text is: ", text)
+                    final_text = "the recorded text is: " + text
+                    sum_text = "the summarized text is: " + generate_summary(text)
+                    keywords = top_frequent_words(text)
+                    yield final_text
+                    yield sum_text
+                    yield keywords
                     return text
-                
                 elif start_mode:
-                    text +=" "+ command_text
+                    text += " " + command_text
                     print("the recorded text is: ", text)
-
+                    yield text
             except sr.UnknownValueError:
-                print("Could not understand audio")
+                yield "Could not understand audio"
             except sr.RequestError as e:
-                print("Error: {0}".format(e))
-  
-
+                yield f"Error: {e}"
 
 
 
 # conn = connect_to_db()
 # setup_t
 # setup_db()
-# listen()
+listen_updates()
 # read_recording()
 # search_recording_by_date("2024-04-27")
 # delete_recording(1)

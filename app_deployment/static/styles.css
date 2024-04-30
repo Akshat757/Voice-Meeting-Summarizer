@@ -72,6 +72,7 @@ body {
     padding: 10px 20px;
     cursor: pointer;
     font-size: 16px;
+    margin-bottom: 70px;
 }
 
 .record-button span {
@@ -181,4 +182,38 @@ p {
     text-align: center;
     font-size: medium;
     font-family: sans-serif;
+}
+
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 70px;
+    margin-bottom: 70px;
+    font-family: Arial, sans-serif;
+}
+
+.pagination-text {
+    margin-right: 20px;
+    font-size: 16px;
+    color: #333;
+}
+
+.pagination-button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.pagination-button.disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.pagination-button:hover {
+    background-color: #45a049;
 }

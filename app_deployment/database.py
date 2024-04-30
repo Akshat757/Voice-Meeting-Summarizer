@@ -85,6 +85,15 @@ def read_recording():
     print("all records in the table are: ",table)
     return table
 
+def all_recording():
+    conn = connect_to_db()
+    c = conn.cursor()
+    list_sql = f"SELECT text, sum_text, timestamp, duration FROM recorded ORDER BY id DESC"
+    c.execute(list_sql)
+    table = c.fetchall()
+    conn.close()
+    print(f"All recordings are: {table}")
+    return table
 
 def last_n_recording(n):
     conn = connect_to_db()
@@ -99,7 +108,7 @@ def last_n_recording(n):
 def search_recording_by_word(search_word):
     conn = connect_to_db()
     c = conn.cursor()
-    search_sql = f"SELECT * FROM recorded WHERE text LIKE '%{search_word}%';"
+    search_sql = f"SELECT text, sum_text, timestamp, duration FROM recorded WHERE text LIKE '%{search_word}%'ORDER BY id DESC"
     c.execute(search_sql)
     table = c.fetchall()
     conn.close()
@@ -110,7 +119,7 @@ def search_recording_by_date(search_date):
     conn = connect_to_db()
     c = conn.cursor()
     # Assuming 'date_column' is the name of the column with datetime stamp
-    search_sql = f"SELECT * FROM recorded WHERE timestamp >= ? AND timestamp < ?;"
+    search_sql = f"SELECT * FROM recorded WHERE timestamp >= ? AND timestamp < ? ORDER BY id DESC"
     # Assuming search_date is a string in format 'YYYY-MM-DD'
     start_date = datetime.strptime(search_date, '%Y-%m-%d')
     end_date = start_date + timedelta(days=1)

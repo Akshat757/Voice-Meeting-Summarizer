@@ -115,19 +115,30 @@ def search_recording_by_word(search_word):
     print(f"all the recordings containing {search_word} are: {table}")
     return table
 
+from datetime import datetime, timedelta
+
 def search_recording_by_date(search_date):
     conn = connect_to_db()
     c = conn.cursor()
-    # Assuming 'date_column' is the name of the column with datetime stamp
-    search_sql = f"SELECT * FROM recorded WHERE timestamp >= ? AND timestamp < ? ORDER BY id DESC"
-    # Assuming search_date is a string in format 'YYYY-MM-DD'
-    start_date = datetime.strptime(search_date, '%Y-%m-%d')
+    # Assuming 'timestamp' is the name of the column with datetime stamp
+    search_sql = "SELECT text, sum_text, timestamp, duration FROM recorded WHERE timestamp >= ? AND timestamp < ? ORDER BY id DESC"
+    try:
+        # Assuming search_date is a string in format 'YYYY-MM-DD'
+        start_date = datetime.strptime(search_date, '%Y-%m-%d')
+    except ValueError:
+        # Handle invalid date format
+        print("Invalid date format. Please provide date in YYYY-MM-DD format.")
+        return []
     end_date = start_date + timedelta(days=1)
     c.execute(search_sql, (start_date, end_date))
     table = c.fetchall()
     conn.close()
-    print(f"All the recordings on {search_date} are: {table}")
+    if not table:
+        print(f"No recordings found for {search_date}.")
+    else:
+        print(f"All the recordings on {search_date} are: {table}")
     return table
+
 
 
 # setup_db()

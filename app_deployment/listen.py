@@ -93,20 +93,20 @@ def listen_updates():
         text_to_speech("Listening for command...")
         start_time = datetime.now()
         print(f'the start time for the listening is: {start_time}\n')
-        time_limit = timedelta(seconds=40)
+        time_limit = timedelta(seconds=120)
     
         start_mode = None
         while True:
             if datetime.now() - start_time >= time_limit:
-                yield f"Time limit of {time_limit} seconds has been passed."
+                yield f"Time limit of {time_limit} seconds has been passed.\n"
                 command_text = "Stop recording"
                 command_process(command_text,text,start_time)
                 final_text = "the recorded text is: " + text
-                sum_text = "\nthe summarized text is: " + generate_summary(text)
-                keywords = top_frequent_words(text)
                 yield final_text
-                yield sum_text
-                yield keywords
+                sum_text = "the summarized text is: " + generate_summary(text)
+                yield sum_text 
+                keywords = top_frequent_words(text)
+                yield keywords 
                 return text
                 
             
@@ -122,17 +122,17 @@ def listen_updates():
                 elif command == "stop":
                     yield 'Recording stopped.'
                     print("the recorded text is: ", text)
-                    final_text = "the recorded text is: " + text
-                    sum_text = "the summarized text is: " + generate_summary(text)
-                    keywords = top_frequent_words(text)
+                    final_text = "\nthe recorded text is: " + text
                     yield final_text
-                    yield sum_text
-                    yield keywords
+                    sum_text = "\nthe summarized text is: " + generate_summary(text) +'\n'
+                    yield sum_text 
+                    keywords = top_frequent_words(text)
+                    yield keywords 
                     return text
                 elif start_mode:
                     text += " " + command_text
                     print("the recorded text is: ", text)
-                    yield text
+                    yield command_text
             except sr.UnknownValueError:
                 yield "Could not understand audio"
             except sr.RequestError as e:
@@ -143,7 +143,7 @@ def listen_updates():
 # conn = connect_to_db()
 # setup_t
 # setup_db()
-listen_updates()
+# listen_updates()
 # read_recording()
 # search_recording_by_date("2024-04-27")
 # delete_recording(1)

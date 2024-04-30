@@ -33,7 +33,7 @@ TO DO'S
 9. different timers for listening for command           -> done
     and when rec. has started
 
-10. a log of operations performed                       -> must have
+10. a log of operations performed                       -> done
     (recording started, timer and all) on ui.           
 
 11. icon on top left                                    -> good to have
@@ -58,3 +58,5 @@ TO DO'S
 
 20. top 5 keywords on the basis of freq.                -> done
     (should not contain articles and small words)
+
+21. add a punctuator to effeciently summarize text      -> done

@@ -28,9 +28,9 @@
     <!-- <h2 style="display: none;">Listening for command...</h2> -->
     <div id="update-container"></div>
 
-    <p class="record_text"></p>
+    <!-- <p class="record_text"></p>
     <p class="summ_text"></p>
-    <p class="key_words"></p>
+    <p class="key_words"></p> -->
     
     
     <div class="controls">
@@ -94,10 +94,8 @@
                 console.error('Response is not a stream');
                 return;
             }
-
             // Create a new ReadableStream from the response body
             const stream = response.body.getReader();
-
             // Function to read updates from the stream
             function readStream() {
                 stream.read().then(({done, value}) => {
@@ -113,7 +111,6 @@
                     readStream();
                 });
             }
-
             // Start reading updates from the stream
             readStream();
         })

@@ -4,7 +4,7 @@ def punctuator(text):
     model = PunctuationModel()
     result = model.restore_punctuation(text)
     print(result)
-    # return result
+    return result
 
 # text = '''in 2018 cornell researchers built a high-powered detector that in combination with an algorithm-driven process called ptychography set a world record
 # by tripling the resolution of a state-of-the-art electron microscope as successful as it was that approach had a weakness it only worked with ultrathin samples that were

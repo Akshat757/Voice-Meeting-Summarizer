@@ -60,3 +60,8 @@ TO DO'S
     (should not contain articles and small words)
 
 21. add a punctuator to effeciently summarize text      -> done
+
+22. ui front page improvements:                         -> must have
+        - heading change (assistant) 
+        - button alignment
+        - 

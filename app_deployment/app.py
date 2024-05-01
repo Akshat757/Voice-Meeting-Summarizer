@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, stream_with_context, Response
-from listen import listen_updates
+from listen import listen_updates, stop
 from database import all_recording, search_recording_by_word, search_recording_by_date
 
 
@@ -14,6 +14,7 @@ from flask import Response, stream_with_context
 
 @app.route('/start_recording', methods=['POST'])
 def start_recording():
+    
     def generate_updates():
         for update in listen_updates():
             # Encode the update message as bytes before yielding
@@ -36,6 +37,7 @@ def start_recording():
 
 @app.route('/stop_recording', methods=['POST'])
 def stop_recording():
+    stop()
     ############something to be added here#############
     return "recording stopped"
 

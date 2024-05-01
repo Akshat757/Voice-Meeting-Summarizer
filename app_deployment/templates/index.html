@@ -35,7 +35,7 @@
     
     <div class="controls">
         <button id="start-recording" class="record-button">
-            <span>START <i class="fas fa-play"></i> RECORDING</span>
+            <span>START <i class="fas fa-play"></i> AGENT</span>
         </button>
         <button id="stop-recording" class="record-button" style="display: none;">
             <span>STOP <i class="fas fa-stop"></i> RECORDING</span>
@@ -80,11 +80,15 @@
         p.textContent = update; // Set the text content of the paragraph element to the update message
         // Append the paragraph element to the update container
         document.getElementById("update-container").appendChild(p);
-    }
+        }
 
     // Function to start recording
     function startRecording() {
         // Make a POST request to start recording
+
+        $('#stop-recording').show();
+        $('#recording-icon').show();
+        $('')
         fetch('/start_recording', {
             method: 'POST'
         })

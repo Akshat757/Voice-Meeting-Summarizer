@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <title>Mail page</title>
+</head>
+<body>
+    <nav class="menu">
+        <ul>
+            <div><li><a href="/">Home</a></li></div>
+            <div><li><a href="/records">Records</a></li></div>
+            <div><li><a href="/mail">Mail</a></li></div>
+            <div><li><a href="/about">About</a></li></div>
+        </ul>
+    </nav>
+
+    <h1 id="mail-heading" class="mailh1">Mail</h1>
+
+    <div class="search-container">
+        <form method="POST">
+            <input type="text" name="select_mail" id="mail" class="search-input" placeholder="e.g. john@gmail.com">
+            <input type="text" name="select_id" id="id" class="search-input" placeholder="e.g. ID = 32">
+            <button class="search-button">Send Mail</button>
+        </form>
+    </div>
+    
+</body>
+</html>

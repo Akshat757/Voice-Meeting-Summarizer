@@ -120,8 +120,10 @@ body {
     margin-right: 10px;
 }
 
+
+
 /* styling for record.html */
-.recordh1{
+.mailh1, .abouth1, .recordh1{
     position: relative;
     animation: float 5s infinite alternate;
     margin-top: 0vh;
@@ -235,8 +237,6 @@ tr:hover {
     border-color: #888; /* Darker border color on hover */
 }
 
-
-
 .pagination {
     position: relative;
     animation: float 5s infinite alternate;
@@ -271,10 +271,6 @@ tr:hover {
 .pagination-button:hover {
     background-color: #45a049;
 }
-/* 
-#update-conatiner {
-     /* Adjust the duration and timing as needed }*/
-  
 
   
 
@@ -297,7 +293,7 @@ tr:hover {
       transform: translate(0, 0); /* Initial position */
     }
     100% {
-      transform: translate(-10px, -10px); /* Adjust the distance the div floats on both axes */
+      transform: translate(-20px, -20px); /* Adjust the distance the div floats on both axes */
     }
   }
 

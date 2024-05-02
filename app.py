@@ -74,5 +74,13 @@ def records():
     return render_template('records.html', data=current_records, page=page, total_pages=total_pages)
 
 
+@app.route('/mail')
+def mail():
+    return render_template('mail.html')
+
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
 if __name__ == '__main__':
     app.run(debug=True)

@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, stream_with_context, Response
-from listen import listen_updates, stop
+from listen import listen_updates, stop, new_listen_updates
 from database import all_recording, search_recording_by_word, search_recording_by_date
 
 
@@ -16,11 +16,12 @@ from flask import Response, stream_with_context
 def start_recording():
     
     def generate_updates():
-        for update in listen_updates():
+        for update in new_listen_updates():
             # Encode the update message as bytes before yielding
             yield update.encode('utf-8')
 
     return Response(stream_with_context(generate_updates()), content_type='text/plain')
+    
 
 
 # @app.route('/start_recording', methods=['POST'])  # Change to POST method

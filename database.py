@@ -1,7 +1,7 @@
 import sqlite3
 from datetime import datetime, timedelta
 
-DATABASE_FILE = 'A:/Learning/Meeting-Summarizer/app_deployment/recorded.db'
+DATABASE_FILE = 'A:/Learning/Meeting-Summarizer/recorded.db'
 
 def connect_to_db():
     return sqlite3.connect(DATABASE_FILE)
@@ -143,3 +143,4 @@ def search_recording_by_date(search_date):
 
 # setup_db()
 # read_recording()
+# all_recording()

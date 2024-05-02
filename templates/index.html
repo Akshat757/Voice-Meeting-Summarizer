@@ -74,74 +74,80 @@
         //             }
         //         });
         //     });
+
         function handleUpdate(update) {
-        // Create a new paragraph element to display the update message
-        var p = document.createElement("p");
-        p.textContent = update; // Set the text content of the paragraph element to the update message
-        // Append the paragraph element to the update container
-        document.getElementById("update-container").appendChild(p);
+            // Create a new paragraph element to display the update message
+            var p = document.createElement("p");
+            p.textContent = update; // Set the text content of the paragraph element to the update message
+            // Append the paragraph element to the update container
+            document.getElementById("update-container").appendChild(p);
         }
 
-    // Function to start recording
-    function startRecording() {
-        // Make a POST request to start recording
+        document.getElementById("start-recording").addEventListener("click", startRecording);
 
-        $('#stop-recording').show();
-        $('#recording-icon').show();
-        $('')
-        fetch('/start_recording', {
-            method: 'POST'
-        })
-        .then(response => {
-            // Check if the response is a stream
-            if (!response.body) {
-                console.error('Response is not a stream');
-                return;
-            }
-            // Create a new ReadableStream from the response body
-            const stream = response.body.getReader();
-            // Function to read updates from the stream
-            function readStream() {
-                stream.read().then(({done, value}) => {
-                    if (done) {
-                        console.log('Stream closed');
-                        return;
-                    }
-                    // Convert the received Uint8Array value to a string
-                    const update = new TextDecoder().decode(value);
-                    // Handle the update
-                    handleUpdate(update);
-                    // Continue reading updates from the stream
-                    readStream();
-                });
-            }
-            // Start reading updates from the stream
-            readStream();
-        })
-        .catch(error => {
-            console.error('Error starting recording:', error);
-        });
-    }
-
-    document.getElementById("start-recording").addEventListener("click", startRecording);
-
-
-            $('#stop-recording').click(function () {
-                // Hide stop recording button and microphone icon
-                $(this).hide();
-                $('#recording-icon').hide();
-                // Show start recording button
-                $('#start-recording').show();
-                $.ajax({
-                    url: '/stop_recording',
-                    type: 'POST',
-                    success: function (data) {
-                        console.log(data);
-                        // You can handle the response here if needed
-                    }
-                });
+        // Function to start recording
+        function startRecording() {
+            // Make a POST request to start recording
+            var divElement = document.getElementById("update-container");
+            divElement.innerHTML = "";
+            $('#start-recording').hide();
+            $('#stop-recording').show();
+            $('')
+            fetch('/start_recording', {
+                method: 'POST'
+            })
+            .then(response => {
+                // Check if the response is a stream
+                if (!response.body) {
+                    console.error('Response is not a stream');
+                    return;
+                }
+                // Create a new ReadableStream from the response body
+                const stream = response.body.getReader();
+                // Function to read updates from the stream
+                function readStream() {
+                    stream.read().then(({done, value}) => {
+                        if (done) {
+                            console.log('Stream closed');
+                            $('#stop-recording').hide();
+                            $('#start-recording').show();
+                            return;
+                        }
+                        // Convert the received Uint8Array value to a string
+                        const update = new TextDecoder().decode(value);
+                        // Handle the update
+                        handleUpdate(update);
+                        // Continue reading updates from the stream
+                        readStream();
+                    });
+                }
+                // Start reading updates from the stream
+                readStream();
+                
+            })
+            .catch(error => {
+                console.error('Error starting recording:', error);
             });
-        // });
+
+        }
+
+
+        $('#stop-recording').click(function () {
+            // Hide stop recording button and microphone icon
+            $(this).hide();
+            $('#recording-icon').hide();
+            // Show start recording button
+            $('#start-recording').show();
+            $.ajax({
+                url: '/stop_recording',
+                type: 'POST',
+                success: function (data) {
+                    console.log(data);
+                    // You can handle the response here if needed
+                }
+            });
+        });
+    
     </script>
     
 

@@ -5,12 +5,13 @@ from speak import text_to_speech
 from datetime import datetime, timedelta
 from summary_sumy import generate_summary
 from keywords import top_frequent_words
+import config
 
 flag = 1
 sum_text = ""
 
 def stop():
-    flag = 0
+    config.recording_state=0
     return
 
 
@@ -46,6 +47,54 @@ def command_process(command_text, text, start_time):
         return "stop"
 
 
+def new_listen_updates():
+    r = sr.Recognizer()
+    text = ""
+    with sr.Microphone() as source:
+        print("Recordign started...")
+        text_to_speech("Recording started...")
+        yield("Recording started...")
+        #text_to_speech("Listening for command...")
+        start_time = datetime.now()
+        print(f'the start time for the listening is: {start_time}\n')
+        time_limit = timedelta(seconds=10)
+
+        config.recording_state=1
+        
+        while True:
+            if config.recording_state == 0: break
+            print(f"the duration of rec is: {datetime.now() - start_time} and limit: {time_limit}")
+            if datetime.now() - start_time >= time_limit:
+                yield f"Recording stopped because, the Time limit of {time_limit} seconds has been passed.\n"
+                break
+                
+            audio = r.listen(source, phrase_time_limit=20)
+            try:
+                recorded_text = r.recognize_google(audio)
+                print("the recorded text is: ", recorded_text)
+                text += " " + recorded_text
+                yield recorded_text
+            except sr.UnknownValueError:
+                yield "Could not understand audio"
+            except sr.RequestError as e:
+                yield f"Error: {e}"
+
+            if config.recording_state == 0: break
+        x = 0
+        yield "recording stopped."
+        text_to_speech("Recording stopped!!!")
+        final_text = "the recorded text is: " + text
+        yield final_text
+        sum_text = "the summarized text is: " + generate_summary(text)
+        yield sum_text 
+        keywords = top_frequent_words(text)
+        yield keywords        
+        save_recording(text, sum_text, start_time)
+
+        #yield "Raw recorded text:"+recorded_text + ",working on converting raw text to readable text"
+
+
+
 
 def listen_updates():
     r = sr.Recognizer()
@@ -72,7 +121,6 @@ def listen_updates():
                 yield keywords 
                 # return text
                 
-            
             audio = r.listen(source, phrase_time_limit=20)
             try:
                 command_text = r.recognize_google(audio)
@@ -85,9 +133,9 @@ def listen_updates():
                 elif command == "stop":
                     yield 'Recording stopped.'
                     print("the recorded text is: ", text)
-                    final_text = "\nthe recorded text is: " + text
+                    final_text = "the recorded text is: " + text
                     yield final_text
-                    sum_text = "\nthe summarized text is: " + generate_summary(text) +'\n'
+                    sum_text = "the summarized text is: " + generate_summary(text) 
                     yield sum_text 
                     keywords = top_frequent_words(text)
                     yield keywords 
@@ -100,6 +148,7 @@ def listen_updates():
                 yield "Could not understand audio"
             except sr.RequestError as e:
                 yield f"Error: {e}"
+                
 
 
 
@@ -158,3 +207,4 @@ def listen_updates():
 # delete_recording(1)
 # read_recording()
 # last_n_recording(2)
+new_listen_updates()

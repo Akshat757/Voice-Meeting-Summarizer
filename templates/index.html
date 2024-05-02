@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dynamic Heading</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <script src="{{ url_for('static', filename='script.js') }}"></script>
@@ -23,7 +24,9 @@
         </ul>
     </nav>
     
-    <h1 id="moving-heading" class="indexh1">listening</h1>
+    <h1 id="moving-heading" class="indexh1">AVA</h1>
+    <p class="indexp">A Voice Assistant.</p>
+    <!-- <h2 class="indexh2">a voice assistant</h2> -->
 
     <!-- <h2 style="display: none;">Listening for command...</h2> -->
     <div id="update-container"></div>
@@ -35,10 +38,10 @@
     
     <div class="controls">
         <button id="start-recording" class="record-button">
-            <span>START <i class="fas fa-play"></i> AGENT</span>
+            <span>START  <i class="fas fa-play" ></i>  AGENT</span>
         </button>
         <button id="stop-recording" class="record-button" style="display: none;">
-            <span>STOP <i class="fas fa-stop"></i> RECORDING</span>
+            <span>STOP <i class="fas fa-stop" ></i> RECORDING</span>
         </button>
         <i id="recording-icon" class="fas fa-microphone" style="display: none;"></i>
     </div>

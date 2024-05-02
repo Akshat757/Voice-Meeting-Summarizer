@@ -1,4 +1,7 @@
 body {
+    background-image: url('avaBackground.jpg'); /* Replace 'your-image-url.jpg' with the URL of your desired image */
+    background-size: cover; /* Cover the entire background */
+    background-position: center; 
     margin: 0;
     padding: 0;
     /* height: 100vh; */
@@ -8,9 +11,32 @@ body {
     flex-direction: column;
 }
 
+.indexp{
+    position: relative;
+    animation: float 5s infinite alternate;
+    margin-top: 0vh;
+    cursor: pointer;
+    font-size: 50px;
+    font-family: sans-serif;
+    font-weight: bold;
+    /* background: linear-gradient(68.6deg, rgb(252, 165, 241) 1.8%, rgb(181, 255, 255) 100.5%); */
+    /* background: linear-gradient(to top, #c471f5 0%, #fa71cd 100%); */
+    /* background: linear-gradient(96.2deg, rgb(255, 230, 112) 10.4%, rgb(255, 100, 100) 43.8%, rgb(0, 93, 219) 105.8%); */
+    /* background: linear-gradient(137.9deg, rgb(78, 156, 226) 7.8%, rgb(62, 146, 69) 16%, rgb(251, 220, 23) 32.7%, rgb(242, 160, 35) 50.4%, rgb(253, 12, 12) 71.5%, rgb(192, 26, 129) 83.1%); */
+    /* background: -webkit-linear-gradient(0deg, rgb(255, 0, 123) 15%, rgb(164, 25, 190) 65%, rgb(123, 22, 218) 100%) text; */
+    /* background: radial-gradient(circle at 10% 20%, rgb(101, 255, 253) 0%, rgb(36, 153, 238) 90%); */
+    background: linear-gradient(to top, #007adf 0%, #00ecbc 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+}
+
 .indexh1 {
     position: relative;
-    margin-top: 10vh;
+    animation: float 5s infinite alternate;
+    margin-top: 0;
+    margin-bottom: 0;
     cursor: pointer;
     font-size: 150px;
     font-family: sans-serif;
@@ -18,7 +44,8 @@ body {
     /* background: linear-gradient(to top, #c471f5 0%, #fa71cd 100%); */
     /* background: linear-gradient(96.2deg, rgb(255, 230, 112) 10.4%, rgb(255, 100, 100) 43.8%, rgb(0, 93, 219) 105.8%); */
     /* background: linear-gradient(137.9deg, rgb(78, 156, 226) 7.8%, rgb(62, 146, 69) 16%, rgb(251, 220, 23) 32.7%, rgb(242, 160, 35) 50.4%, rgb(253, 12, 12) 71.5%, rgb(192, 26, 129) 83.1%); */
-    background: -webkit-linear-gradient(0deg, rgb(255, 0, 123) 15%, rgb(164, 25, 190) 65%, rgb(123, 22, 218) 100%) text;
+    /* background: -webkit-linear-gradient(0deg, rgb(255, 0, 123) 15%, rgb(164, 25, 190) 65%, rgb(123, 22, 218) 100%) text; */
+    background: linear-gradient(to top, #007adf 0%, #00ecbc 100%);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -26,12 +53,14 @@ body {
 }
 
 
-
-
 .menu {
-    background-color: #333;
-    padding: 15px 0;
+    /* background: linear-gradient(to right, #8a2be2 , #b83280); Gradient background from reddish-purple to brighter purple */
+    padding: 15px 0; /* Reduced padding */
     width: 100%;
+    height: 50px; /* Reduced navbar height */
+    display: flex;
+    justify-content: center; /* Center align items on the x-axis */
+    align-items: center; /* Center align items on the y-axis */
 }
 
 .menu ul {
@@ -40,34 +69,46 @@ body {
     padding: 0;
     text-align: center;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between; /* Equal spacing between items */
+    width: 80%; /* Limiting the width of the ul */
 }
 
 .menu ul li {
     display: inline-block;
-    /* position: relative; */
 }
 
 .menu ul li a {
-    color: #fff;
+    color: #fff; /* White text color */
     text-decoration: none;
-    padding: 10px 20px;
+    padding: 10px 20px; /* Padding for options */
+    font-size: 25px; /* Increased font size */
+    transition: background-color 0.3s; /* Smooth transition effect */
 }
 
 .menu ul li a:hover {
-    background-color: #555;
+    /* background-color: #d252b6; Darker purple background color on hover */
+    background: linear-gradient(to top, #007adf 0%, #00ecbc 100%);
+    border-radius: 5px; /* Rounded corners on hover */
 }
+
+
 
 
 .controls {
     text-align: center;
-    margin-top: 230px;
+    margin-top: 10%;
 }
 
 .record-button {
-    background-color: #007bff;
+    /* background-color: #007bff; */
+    position: relative;
+    animation: float 5s infinite alternate;
+    background: linear-gradient(to right, #007adf 0%, #0aa9e8 100%);
     color: #fff;
+    font-weight: bold;
     border: none;
+    height: 50px;
+    width: 300px;
     border-radius: 20px;
     padding: 10px 20px;
     cursor: pointer;
@@ -82,6 +123,7 @@ body {
 /* styling for record.html */
 .recordh1{
     position: relative;
+    animation: float 5s infinite alternate;
     margin-top: 0vh;
     cursor: pointer;
     font-size: 150px;
@@ -90,7 +132,8 @@ body {
     /* background: linear-gradient(to top, #c471f5 0%, #fa71cd 100%); */
     /* background: linear-gradient(96.2deg, rgb(255, 230, 112) 10.4%, rgb(255, 100, 100) 43.8%, rgb(0, 93, 219) 105.8%); */
     /* background: linear-gradient(137.9deg, rgb(78, 156, 226) 7.8%, rgb(62, 146, 69) 16%, rgb(251, 220, 23) 32.7%, rgb(242, 160, 35) 50.4%, rgb(253, 12, 12) 71.5%, rgb(192, 26, 129) 83.1%); */
-    background: -webkit-linear-gradient(0deg, rgb(255, 0, 123) 15%, rgb(164, 25, 190) 65%, rgb(123, 22, 218) 100%) text;
+    /* background: -webkit-linear-gradient(0deg, rgb(255, 0, 123) 15%, rgb(164, 25, 190) 65%, rgb(123, 22, 218) 100%) text; */
+    background: linear-gradient(to top, #007adf 0%, #00ecbc 100%);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -98,24 +141,35 @@ body {
 }
 
 table {
+    position: relative;
+    /* animation: float 5s infinite alternate; */
     border-collapse: collapse;
-    width: 100%;
-    margin: auto; /* Center align the table */
+    width: 90%;
+    margin: auto;
+    background-color: #fff; /* White background color */
+    border-radius: 8px; /* Rounded corners */
+    overflow: hidden; /* Hide overflowing content */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow effect */
 }
 
 /* Style for table headers */
 th {
-    background-color: #f2f2f2; /* Light gray background */
-    border: 1px solid #ddd; /* Gray border */
-    padding: 8px;
-    text-align: center; /* Center align the text */
+    background-color: #f2f2f2;
+    border: 1px solid #ddd;
+    padding: 12px; /* Increased padding */
+    text-align: center;
 }
 
 /* Style for table cells */
 td {
-    border: 1px solid #ddd; /* Gray border */
-    padding: 8px;
-    text-align: center; /* Center align the text */
+    border: 1px solid #ddd;
+    padding: 12px; /* Increased padding */
+    text-align: center;
+}
+
+/* Hover effect for table rows */
+tr:hover {
+    background-color: #f9f9f9; /* Light gray background on hover */
 }
 
 /* Hide the full text initially */
@@ -130,8 +184,10 @@ td {
 
 /* Style for the search bar */
 .search-container {
+    position: relative;
+    animation: float 5s infinite alternate;
     text-align: center; /* Center align the search bar */
-    margin-bottom: 15vh; /* Add some space below the search bar */
+    margin-bottom: 8vh; /* Add some space below the search bar */
     margin-top: -5vh;
 }
 
@@ -152,6 +208,8 @@ td {
 .search-button {
     padding: 10px; /* Add padding to the search button */
     border: none; /* Remove border */
+    margin-left: 10px;
+    font-size: 16px;
     background-color: #4CAF50; /* Green background color */
     color: white; /* White text color */
     border-radius: 5px; /* Add border radius for rounded corners */
@@ -177,30 +235,23 @@ td {
     border-color: #888; /* Darker border color on hover */
 }
 
-p {
-    color: #333;
-    text-align: center;
-    font-size: medium;
-    font-family: sans-serif;
-    font-size: 40px;
-    margin-left: 20px;
-    margin-right: 20px;
-}
 
 
 .pagination {
+    position: relative;
+    animation: float 5s infinite alternate;
     display: flex;
     justify-content: center;
     align-items: center;
     margin-top: 70px;
-    margin-bottom: 70px;
+    margin-bottom: 50px;
     font-family: Arial, sans-serif;
 }
 
 .pagination-text {
     margin-right: 20px;
-    font-size: 16px;
-    color: #333;
+    font-size: 20px;
+    color: #fff;
 }
 
 .pagination-button {
@@ -220,3 +271,76 @@ p {
 .pagination-button:hover {
     background-color: #45a049;
 }
+/* 
+#update-conatiner {
+     /* Adjust the duration and timing as needed }*/
+  
+
+  
+
+#update-container {
+    position: relative;
+    animation: float 5s infinite alternate;
+    background-color: #e0e0e0; /* Light gray background */
+    border: 1px solid #ccc; /* Light gray border */
+    border-radius: 10px; /* Rounded borders */
+    padding: 20px; /* Padding around the container */
+    width: 95%; /* Set width to almost take the width of the page */
+    max-width: 70%; /* Limit maximum width */
+    margin: 100px auto; /* Centering the container horizontally with more margin */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Drop shadow effect */
+    overflow: hidden; /* Hide overflow content */
+}
+
+@keyframes float {
+    0% {
+      transform: translate(0, 0); /* Initial position */
+    }
+    100% {
+      transform: translate(-10px, -10px); /* Adjust the distance the div floats on both axes */
+    }
+  }
+
+
+#update-container p {
+    font-family: Arial, sans-serif; /* Font family */
+    font-size: 26px; /* Font size */
+    color: #333; /* Text color */
+    margin: 10px 0; /* Margin between paragraphs */
+    line-height: 1.5; /* Line height for better readability */
+}
+
+#update-container p:last-child {
+    font-weight: bold;
+    margin-bottom: 0; /* Remove bottom margin for the last paragraph */
+}
+
+#update-container p:first-child {
+    font-weight: bold; /* Make the first paragraph bold */
+}
+
+#update-container p:hover {
+    background-color: #eaeaea; /* Light gray background on hover */
+    transition: background-color 0.3s; /* Smooth transition effect */
+}
+
+#update-container::before {
+    content: "Updates"; /* Label for the container */
+    display: block; /* Display as block element */
+    font-size: 25px; /* Font size for the label */
+    text-align: center; /* Center the label */
+    margin-top: 5px; /* Margin above the label */
+    color: #666; /* Text color */
+}
+
+
+#update-container::after {
+    content: "\2714"; /* Unicode check mark icon */
+    display: block; /* Display as block element */
+    font-size: 24px; /* Icon size */
+    color: #00cc00; /* Green color */
+    margin-bottom: 10px; /* Margin below the icon */
+    text-align: center; /* Center the icon */
+}
+
+

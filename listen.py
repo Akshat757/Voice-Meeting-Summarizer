@@ -57,7 +57,7 @@ def new_listen_updates():
         #text_to_speech("Listening for command...")
         start_time = datetime.now()
         print(f'the start time for the listening is: {start_time}\n')
-        time_limit = timedelta(seconds=10)
+        time_limit = timedelta(seconds=200)
 
         config.recording_state=1
         

@@ -1,0 +1,1 @@
+pip install deepmultilingualpunctuation sumy speech_recognition sqlite3 

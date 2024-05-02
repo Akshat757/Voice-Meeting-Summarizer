@@ -65,3 +65,7 @@ TO DO'S
         - heading change (assistant) 
         - button alignment
         - 
+
+23. add requirements.txt 
+
+24. pip install deepmultilingualpunctuation sumy speech_recognition sqlite3 tensorflow

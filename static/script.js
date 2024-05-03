@@ -12,3 +12,14 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+
+document.getElementById("send-mail").addEventListener("click", function() {
+    // Fetch the last recorded ID from the server
+    fetch('/last_recorded_id')
+    .then(response => response.json())
+    .then(data => {
+        // Set the value of the input field to the last recorded ID
+        document.getElementById("select-id").value = data.last_recorded_id;
+    })
+    .catch(error => console.error('Error fetching last recorded ID:', error));
+});

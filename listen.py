@@ -6,6 +6,7 @@ from datetime import datetime, timedelta
 from summary_sumy import generate_summary
 from keywords import top_frequent_words
 import config
+import time
 
 flag = 1
 sum_text = ""
@@ -81,14 +82,15 @@ def new_listen_updates():
 
             if config.recording_state == 0: break
         x = 0
-        yield "recording stopped."
-        text_to_speech("Recording stopped!!!")
+        yield "recording stopped!!!"
+        text_to_speech("Recording stopped")
         final_text = "the recorded text is: " + text
         yield final_text
-        x = 1
+        time.sleep(2)
+        text_to_speech("Working on the summary...")
         yield "Working on the summary..."
-        sum_text = "the summarized text is: " + generate_summary(text)
-        yield sum_text 
+        sum_text = generate_summary(text)
+        yield "the summarized text is: " + sum_text 
         keywords = "key points: " + top_frequent_words(text)
         yield keywords        
         save_recording(text, sum_text, start_time)

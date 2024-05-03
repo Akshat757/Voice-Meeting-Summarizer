@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, stream_with_context, Response
 from listen import listen_updates, stop, new_listen_updates
-from database import all_recording, search_recording_by_word, search_recording_by_date
+from database import all_recording, search_recording_by_word, search_recording_by_date, last_n_recording
 from mail_service import send_email
 import re
 
@@ -76,8 +76,10 @@ def records():
     return render_template('records.html', data=current_records, page=page, total_pages=total_pages)
 
 
+
 @app.route('/mail', methods=['GET', 'POST'])
 def mail():
+    last_recorded_id = last_n_recording(1)[0][0] # Implement this function to get the last recorded ID
     message = None
     if request.method == 'POST':
         receiver_mail = request.form.get('select_mail')
@@ -96,7 +98,9 @@ def mail():
         else:
             message = "Please provide both receiver email and ID!"
     
-    return render_template('mail.html', message=message)
+    return render_template('mail.html', last_recorded_id=last_recorded_id, message=message)
+ # Pass the last recorded ID to the template
+
 
 
 def validate_email(email):

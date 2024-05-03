@@ -22,7 +22,9 @@
     <div class="search-container">
         <form method="POST">
             <input type="text" name="select_mail" id="reciever_mail" class="search-input" placeholder="e.g. john@gmail.com">
-            <input type="text" name="select_id" id="id" class="search-input" placeholder="e.g. ID = 32">
+            <!-- <input type="text" name="select_id" id="id" class="search-input" placeholder="e.g. ID = 32"> -->
+            <input type="text" name="select_id" id="select-id" class="search-input" placeholder="e.g. ID = 32" value="{{ last_recorded_id }}">
+
             <button class="search-button" type="submit">Send Mail</button>
         </form>
     </div>
@@ -43,6 +45,7 @@
             </a>
         </div>
     </footer>
+
     
 </body>
 </html>

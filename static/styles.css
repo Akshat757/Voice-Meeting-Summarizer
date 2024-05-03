@@ -150,7 +150,7 @@ body {
     margin-top: 8%;
 }
 
-.record-button {
+.record-button, .mail-button{
     /* background-color: #007bff; */
     position: relative;
     /* animation: float 5s infinite alternate; */

@@ -45,6 +45,9 @@
             <span>STOP <i class="fas fa-stop" ></i> RECORDING</span>
         </button>
         <i id="recording-icon" class="fas fa-microphone" style="display: none;"></i>
+        <button id="send-mail" class="mail-button" style="display: none;">
+            <i class="far fa-envelope"></i> <a href="/mail">Send Mail</a>
+        </button>
     </div>
 
     <footer class="footer">
@@ -107,7 +110,7 @@
             divElement.innerHTML = "";
             $('#start-recording').hide();
             $('#stop-recording').show();
-            $('')
+            $('#send-mail').hide();
             fetch('/start_recording', {
                 method: 'POST'
             })
@@ -126,6 +129,7 @@
                             console.log('Stream closed');
                             $('#stop-recording').hide();
                             $('#start-recording').show();
+                            $('#send-mail').show();
                             return;
                         }
                         // Convert the received Uint8Array value to a string
@@ -150,7 +154,6 @@
         $('#stop-recording').click(function () {
             // Hide stop recording button and microphone icon
             $(this).hide();
-            $('#recording-icon').hide();
             // Show start recording button
             $('#start-recording').show();
             $.ajax({

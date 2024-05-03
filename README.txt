@@ -68,4 +68,15 @@ TO DO'S
 
 23. add requirements.txt 
 
-24. pip install deepmultilingualpunctuation sumy speech_recognition sqlite3 tensorflow
+24. sentences count in generate summary 
+    should be dynamic
+
+25. add logo
+
+26. remove image and have static bg
+
+27. mail functionality
+
+28. property file where a user can enter mail id and password
+
+requirements - pip install deepmultilingualpunctuation sumy speech_recognition sqlite3 tensorflow

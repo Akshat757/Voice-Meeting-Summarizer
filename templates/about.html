@@ -6,6 +6,62 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <script src="{{ url_for('static', filename='script.js') }}"></script>
     <title>About page</title>
+
+    <style>
+        /* Add custom CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h2 {
+            /* color: #007bff; */
+            /* position: relative;
+            cursor: pointer; */
+            margin-top: 30px;
+            font-size: 32px;
+            background: linear-gradient(to top, #007adf 0%, #00ecbc 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            /* text-align: center; */
+        }
+
+        p {
+            margin-bottom: 20px;
+            font-size: 24px;
+            line-height: 1.6;
+        }
+
+        ul {
+            margin-bottom: 20px;
+        }
+
+        ul li {
+            list-style-type: none;
+            margin-bottom: 10px;
+            font-size: 22px;
+        }
+
+        a {
+            color: #79b7f8;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+    </style>
 </head>
 <body>
     <nav class="menu">
@@ -18,6 +74,36 @@
     </nav>
 
     <h1 id="about-heading" class="abouth1">About</h1>
+
+    <div class="container">
+        <!-- Add the first div -->
+        <div class="content">
+            <h2>About Me</h2>
+            <p>
+                I'm Akshat Sharma, a passionate B.Tech 4th year student with a strong inclination towards software engineering. As an aspiring developer, I'm continuously exploring new technologies and honing my skills to create innovative solutions. With a relentless drive for excellence, I thrive on challenges and embrace every opportunity to expand my knowledge and expertise. Beyond the realm of coding, I'm an avid learner, always seeking inspiration from diverse sources to fuel my creativity. You can learn more about my work and contributions by visiting my <a href="https://github.com/akshat757">GitHub</a> and <a href="https://www.linkedin.com/in/akshat-sharma757/">LinkedIn</a> profiles. Feel free to connect with me to know more about my journey and projects!
+            </p>
+        </div>
+
+        <div class="content">
+            <h2>About the Project</h2>
+            <p>
+                AVA, a voice assistant, is envisioned to be a multifunctional tool aimed at simplifying note-taking and summarization tasks. Leveraging Python for backend logic and integrating various libraries such as TensorFlow for AI capabilities and Flask for web development, the project's goal is to enhance productivity by providing a convenient tool for note-taking and summarization. It aims to facilitate effective communication and collaboration by streamlining tasks such as:
+            </p>
+            <ul>
+                <li>Recording audio</li>
+                <li>Converting audio into text</li>
+                <li>Storing text along with summaries in a database</li>
+                <li>Providing CRUD operations for managing records</li>
+                <li>Offering real-time updates during recording</li>
+                <li>Extracting keywords from recordings</li>
+                <li>Enabling email sharing functionality</li>
+            </ul>
+            <p>
+                AVA empowers users to manage meeting notes and communication effectively without worrying about tedious note-taking processes.
+            </p>
+        </div>
+    </div>
+
     
 </body>
 </html>

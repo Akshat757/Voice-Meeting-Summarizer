@@ -21,7 +21,7 @@
     </nav>
 
 
-    <h1 id="moving-heading" class="recordh1">Records</h1>
+    <h1 id="records-heading" class="recordh1">Records</h1>
 
     <div class="search-container">
         <form method="POST">
@@ -37,6 +37,7 @@
     <table class="records-container" border="1">
         <tr>
             <th>#</th>
+            <th>ID</th>
             <th>Recorded Text</th>
             <th>Summarized Text</th>
             <th>time of record</th>
@@ -47,16 +48,28 @@
         {% for index in range(1, data|length + 1) %}
         <tr>
             <td>{{ index }}</td>
-            <td class="truncated-text">{{ data[index-1][0] | truncate(50) }}</td>
-            <td class="full-text" style="display: none;">{{ data[index-1][0] }}</td>
+            <td>{{ data[index-1][0] }}</td>
             <td class="truncated-text">{{ data[index-1][1] | truncate(50) }}</td>
             <td class="full-text" style="display: none;">{{ data[index-1][1] }}</td>
-            <td>{{ data[index-1][2] }}</td>
+            <td class="truncated-text">{{ data[index-1][2] | truncate(50) }}</td>
+            <td class="full-text" style="display: none;">{{ data[index-1][2] }}</td>
             <td>{{ data[index-1][3] }}</td>
+            <td>{{ data[index-1][4] }}</td>
             <!-- Repeat this line for each column -->
         </tr>
         {% endfor %}
     </table>
+
+    <footer class="footer">
+        <div>
+            <p class="rights">&copy; All Rights Reserved By CodeWithAkshat.</p>
+        </div>
+        <div>
+            <a href="https://github.com/akshat757" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-github"></i> Github
+            </a>
+        </div>
+    </footer>
 
     <script>
         

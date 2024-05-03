@@ -37,7 +37,7 @@ def command_process(command_text, text, start_time):
         text_to_speech("recording stopped")
         sum_text = generate_summary(text)
         save_recording(text, sum_text, start_time)
-        send_email(text)
+        # send_email(text)
         return "stop"
     elif command4 in command_text.lower():
         search_query = command_text.split("search database for", 1)[1].strip()
@@ -85,9 +85,11 @@ def new_listen_updates():
         text_to_speech("Recording stopped!!!")
         final_text = "the recorded text is: " + text
         yield final_text
+        x = 1
+        yield "Working on the summary..."
         sum_text = "the summarized text is: " + generate_summary(text)
         yield sum_text 
-        keywords = top_frequent_words(text)
+        keywords = "key points: " + top_frequent_words(text)
         yield keywords        
         save_recording(text, sum_text, start_time)
 
@@ -207,4 +209,4 @@ def listen_updates():
 # delete_recording(1)
 # read_recording()
 # last_n_recording(2)
-new_listen_updates()
+# new_listen_updates()

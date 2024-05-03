@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, stream_with_context, Response
 from listen import listen_updates, stop, new_listen_updates
 from database import all_recording, search_recording_by_word, search_recording_by_date
+from mail_service import send_email
+import re
 
 
 app = Flask(__name__)
@@ -74,9 +76,35 @@ def records():
     return render_template('records.html', data=current_records, page=page, total_pages=total_pages)
 
 
-@app.route('/mail')
+@app.route('/mail', methods=['GET', 'POST'])
 def mail():
-    return render_template('mail.html')
+    message = None
+    if request.method == 'POST':
+        receiver_mail = request.form.get('select_mail')
+        id = request.form.get('select_id')
+        
+        # Check if both receiver email and ID are provided
+        if receiver_mail and id:
+            if validate_email(receiver_mail):  # Check if email is valid
+                try:
+                    send_email(id, receiver_mail)
+                    message = "Email sent successfully! to " + receiver_mail
+                except Exception as e:
+                    message = "Failed to send email: " + str(e)
+            else:
+                message = "Please provide a valid email address!"
+        else:
+            message = "Please provide both receiver email and ID!"
+    
+    return render_template('mail.html', message=message)
+
+
+def validate_email(email):
+    # Basic email format validation using regular expression
+    pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    return re.match(pattern, email) is not None
+
+
 
 @app.route('/about')
 def about():

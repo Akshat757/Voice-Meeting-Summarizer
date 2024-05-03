@@ -21,11 +21,28 @@
 
     <div class="search-container">
         <form method="POST">
-            <input type="text" name="select_mail" id="mail" class="search-input" placeholder="e.g. john@gmail.com">
+            <input type="text" name="select_mail" id="reciever_mail" class="search-input" placeholder="e.g. john@gmail.com">
             <input type="text" name="select_id" id="id" class="search-input" placeholder="e.g. ID = 32">
-            <button class="search-button">Send Mail</button>
+            <button class="search-button" type="submit">Send Mail</button>
         </form>
     </div>
+
+    <div id="update-container">
+        {% if message %}
+            <div class="message">{{ message }}</div>
+        {% endif %}
+    </div>
+
+    <footer class="footer">
+        <div>
+            <p class="rights">&copy; All Rights Reserved By CodeWithAkshat.</p>
+        </div>
+        <div>
+            <a href="https://github.com/akshat757" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-github"></i> Github
+            </a>
+        </div>
+    </footer>
     
 </body>
 </html>

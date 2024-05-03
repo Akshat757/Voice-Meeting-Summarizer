@@ -1,7 +1,7 @@
 import sqlite3
 from datetime import datetime, timedelta
 
-DATABASE_FILE = 'A:/Learning/Meeting-Summarizer/recorded.db'
+DATABASE_FILE = './db/recorded.db'
 
 def connect_to_db():
     return sqlite3.connect(DATABASE_FILE)
@@ -44,11 +44,6 @@ def save_recording(text, sum_text, start_time):
         duration = end_time - start_time  # Calculate the duration
         duration_str = format_duration(duration)  # Format the duration as a string
 
-        # print(f'the start time of the recording recieved by the save recording func. is: {start_time}\n')
-        # print(f'the end time of the recording is: {end_time}\n')
-        # print(f'the duration of the recording is: {duration}\n')
-        # print(f'the duration after formatting is: {duration_str}\n')
-
         setup_db()
 
         # Insert recorded text into the database along with a timestamp and duration
@@ -88,7 +83,8 @@ def read_recording():
 def all_recording():
     conn = connect_to_db()
     c = conn.cursor()
-    list_sql = f"SELECT text, sum_text, timestamp, duration FROM recorded ORDER BY id DESC"
+    # list_sql = f"SELECT text, sum_text, timestamp, duration FROM recorded ORDER BY id DESC"
+    list_sql = f"SELECT * FROM recorded ORDER BY id DESC"
     c.execute(list_sql)
     table = c.fetchall()
     conn.close()
@@ -108,7 +104,8 @@ def last_n_recording(n):
 def search_recording_by_word(search_word):
     conn = connect_to_db()
     c = conn.cursor()
-    search_sql = f"SELECT text, sum_text, timestamp, duration FROM recorded WHERE text LIKE '%{search_word}%'ORDER BY id DESC"
+    # search_sql = f"SELECT text, sum_text, timestamp, duration FROM recorded WHERE text LIKE '%{search_word}%'ORDER BY id DESC"
+    search_sql = f"SELECT * FROM recorded WHERE text LIKE '%{search_word}%'ORDER BY id DESC"
     c.execute(search_sql)
     table = c.fetchall()
     conn.close()
@@ -121,7 +118,8 @@ def search_recording_by_date(search_date):
     conn = connect_to_db()
     c = conn.cursor()
     # Assuming 'timestamp' is the name of the column with datetime stamp
-    search_sql = "SELECT text, sum_text, timestamp, duration FROM recorded WHERE timestamp >= ? AND timestamp < ? ORDER BY id DESC"
+    # search_sql = "SELECT text, sum_text, timestamp, duration FROM recorded WHERE timestamp >= ? AND timestamp < ? ORDER BY id DESC"
+    search_sql = "SELECT * FROM recorded WHERE timestamp >= ? AND timestamp < ? ORDER BY id DESC"
     try:
         # Assuming search_date is a string in format 'YYYY-MM-DD'
         start_date = datetime.strptime(search_date, '%Y-%m-%d')
@@ -138,6 +136,37 @@ def search_recording_by_date(search_date):
     else:
         print(f"All the recordings on {search_date} are: {table}")
     return table
+
+
+import sqlite3
+
+def fetch_texts_by_id(id):
+    # Connect to your database
+    conn = connect_to_db()
+    cursor = conn.cursor()
+    
+    try:
+        # Execute a SELECT query to fetch recorded text and summarized text based on the provided ID
+        cursor.execute("SELECT text, sum_text FROM recorded WHERE id=?", (id,))
+        
+        # Fetch the result
+        result = cursor.fetchone()
+        
+        # If result is not None, extract recorded text and summarized text
+        if result:
+            recorded_text, summarized_text = result
+            return recorded_text, summarized_text
+        else:
+            # Handle case when no record is found for the provided ID
+            print("No record found for the provided ID")
+            return None, None
+    except sqlite3.Error as e:
+        print("Error fetching data:", e)
+        return None, None
+    finally:
+        # Close the database connection
+        conn.close()
+
 
 
 

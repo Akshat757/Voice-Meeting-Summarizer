@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, stream_with_context, Response
 from listen import listen_updates, stop, new_listen_updates
-from database import all_recording, search_recording_by_word, search_recording_by_date, last_n_recording
+from database import all_recording, search_recording_by_word, search_recording_by_date, last_n_recording, setup_db, get_number_of_recordings
 from mail_service import send_email
 import re
 
@@ -10,6 +10,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
+    setup_db()
     return render_template('index.html')
 
 from flask import Response, stream_with_context
@@ -79,7 +80,9 @@ def records():
 
 @app.route('/mail', methods=['GET', 'POST'])
 def mail():
-    last_recorded_id = last_n_recording(1)[0][0] # Implement this function to get the last recorded ID
+    if get_number_of_recordings() > 0 : last_recorded_id = last_n_recording(1)[0][0] # Implement this function to get the last recorded ID
+    else: last_recorded_id = 0
+
     message = None
     if request.method == 'POST':
         receiver_mail = request.form.get('select_mail')

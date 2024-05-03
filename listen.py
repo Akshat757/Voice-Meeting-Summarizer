@@ -86,9 +86,9 @@ def new_listen_updates():
         text_to_speech("Recording stopped")
         final_text = "the recorded text is: " + text
         yield final_text
-        time.sleep(2)
-        text_to_speech("Working on the summary...")
+        time.sleep(1)
         yield "Working on the summary..."
+        text_to_speech("Working on the summary...")
         sum_text = generate_summary(text)
         yield "the summarized text is: " + sum_text 
         keywords = "key points: " + top_frequent_words(text)

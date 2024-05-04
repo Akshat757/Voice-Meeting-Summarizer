@@ -2,6 +2,7 @@ from __future__ import absolute_import
 from __future__ import division, print_function, unicode_literals
 
 # from sumy.parsers.html import HtmlParser
+from nltk.tokenize import sent_tokenize
 from sumy.parsers.plaintext import PlaintextParser
 from sumy.nlp.tokenizers import Tokenizer
 from sumy.summarizers.lsa import LsaSummarizer as Summarizer
@@ -13,6 +14,16 @@ from punctuator import punctuator
 
 def generate_summary(text, language="english", sentences_count=1):
     text = punctuator(text)
+
+    # Tokenize the text into sentences
+    sentences = sent_tokenize(text)
+
+    # Calculate the number of sentences for the summary
+    total_sentences = len(sentences)
+    # Define a ratio for summary size (adjust as needed)
+    summary_ratio = 0.3  # You can adjust this ratio based on your preference
+    summary_sentences_count = max(1, int(total_sentences * summary_ratio))
+
     parser = PlaintextParser.from_string(text, Tokenizer(language))
     stemmer = Stemmer(language)
 
@@ -27,7 +38,11 @@ def generate_summary(text, language="english", sentences_count=1):
 
 # if __name__ == "__main__":
 #     TEXT = '''
-#     so let me just give you an introduction about myself I am John from college medicaps university. I have been is there since last three years. I am a third year student of BTech from branch Computer Science and what time assistant for Bipasha meetings and Caesar.I have many other hobbies like playing sports listening music travelling two various places across the country.
+#     so let me just give you an introduction about myself I am John from 
+#     college medicaps university. I have been is there since last three years. I am a third 
+#     year student of BTech from branch Computer Science and what time assistant for Bipasha 
+#     meetings and Caesar.I have many other hobbies like playing sports listening music travelling 
+#     two various places across the country.
 #     '''
 
 #     LANGUAGE = "english"

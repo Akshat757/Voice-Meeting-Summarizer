@@ -3,7 +3,7 @@ import re
 
 def is_valid_word(word):
     # Define a list of articles, prepositions, pronouns, and punctuations
-    invalid_words = ["a", "an", "the", "and", "or", "but", "for", "of", "in", "on", "at", "to", "with", "by", "as", "I", "you", "he", "she", "it", "we", "they", "me", "him", "her", "us", "them", ",", ".", "!", "?", ";", ":", "'", '"', "have", "has", "are", "that", "this", "from", "is", "so"]
+    invalid_words = ["a", "an", "the", "and", "or", "but", "for", "of", "in", "on", "at", "to", "with", "by", "as", "I", "you", "he", "she", "it", "we", "they", "me", "him", "her", "us", "them", ",", ".", "!", "?", ";", ":", "'", '"', "have", "has", "are", "that", "this", "from", "is", "so", "then"]
     
     # Check if the word is not in the list of invalid words and contains only alphabetic characters
     return word.lower() not in invalid_words and re.match("^[a-zA-Z]+$", word)
